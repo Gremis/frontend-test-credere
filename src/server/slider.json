@@ -1,0 +1,44 @@
+{
+    "news": [
+        {
+        "_id": "shirt1",
+        "image": "/images/a.png",
+        "title": "Cor de rosa ganhando o espaço!",
+        "description": "Blusa em decote canoa para lembrar que tem rosa no espaço sim! Blusa em decote canoa, com detalhes em rosa, nos lembra de Katherine Jonhson, Margaret Hamilton, Nancy Roman, Katie Bouman e tantas outras cientistas levaram o rosa para o espaço sideral! Criada para mulheres além do tempo e do espaço! ",
+        "availableSizes": ["XS", "S", "M", "L"],
+        "availableType": ["Feminina", "Infantil"],
+        "price": 69.19,
+        "quant": 1
+        },
+        {
+        "_id": "shirt2",
+        "image": "/images/b.png",
+        "title": "Camiseta de verão com detalhe espaço",
+        "description": "Ideal para amenizar o calor resultante do aquecimento global! Estampa exclusiva, em malha de algodão, para quem tem os pés na terra e a cabeça na lua! Descontração, conforto e estilo disponível em diversos tamanhos!",
+        "availableSizes": ["S", "L", "XL"],
+        "availableType": ["Feminina", "Infantil"],
+        "price": 56.85,
+        "quant": 1
+        },
+        {
+        "_id": "shirt3",
+        "image": "/images/c.png",
+        "title": "Blusa astronauta manga longa",
+        "description": "Para aquelas e aqueles que sabem que o aquecimento global também baixa as temperaturas fora de hora! Siga os conselhos de sua mãe e tenha esse blusão quentinho sempre a mão para o caso de esfriar!",
+        "availableSizes": ["M", "L", "XL", "XXL"],  
+        "availableType": ["Feminina", "Masculina"],
+        "price": 87.50,
+        "quant": 1
+        },
+        {
+        "_id": "shirt4",
+        "image": "/images/d.png",
+        "title": "Dab espacial!",
+        "description": "Celebre suas conquistas vestindo nosso Dab espacial! Para pessoas arrojadas que sabem que o céu não é o limite! Conforto e qualidade disponível em diversos tamanhos.",
+        "availableSizes": ["XS", "L", "XL", "XXL"],
+        "availableType": ["Feminina", "Infantil"],
+        "price": 35.90,
+        "quant": 1
+        }
+    ]
+}
