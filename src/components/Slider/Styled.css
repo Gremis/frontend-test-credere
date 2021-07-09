@@ -1,0 +1,149 @@
+.slider {
+  width: 100%;
+  height: 520px;
+  border: 1px solid #bfbfbf;
+  box-shadow: 5px 5px 5px 5px #aaaaaa;
+}
+
+.image0 {
+  width: 350px;
+  height: 472px;
+}
+
+.image1,
+.image2 {
+  width: 1385px;
+  height: 470px;
+  object-fit: cover;
+}
+
+.image3 {
+  width: 1385px;
+  height: 300px;
+}
+
+.right-arrow {
+  position: absolute;
+  font-size: 1.5rem;
+  padding: 15px;
+  right: 3vw;
+  top: 62vh;
+  color: white;
+  background-color: #f52f00;
+  z-index: 10;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 3px solid #cd0011;
+}
+
+.right-arrow:hover {
+  border-bottom: 5px solid #cd0011;
+  margin-top: -5px;
+}
+
+.right-arrow:active {
+  border-bottom: none;
+  margin-top: 2px;
+}
+
+.slide {
+  margin: 26px 54px;
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+.slide.active0 {
+  display: flex;
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+
+.details0 {
+  margin: 15px 60px;
+}
+
+.title0 {
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+
+.description0 {
+  font-size: 2.4rem;
+  color: #a2a2a2;
+  font-weight: 400;
+}
+
+.paragraph0 {
+  font-size: 1.6rem;
+}
+
+.slide.active1,
+.slide.active2 {
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+
+.details1 {
+  position: absolute;
+  margin-top: -360px;
+  margin-left: 100px;
+  color: white;
+}
+
+.title1,
+.title2 {
+  font-size: 3.5rem;
+}
+
+.description1 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-right: 400px;
+  padding-right: 100px;
+}
+
+.details2 {
+  position: absolute;
+  margin-top: -385px;
+  margin-left: 400px;
+  color: white;
+  text-align: end;
+}
+
+.description2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-top: -40px;
+}
+
+.slide.active3 {
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+
+.title3 {
+  color: white;
+  position: absolute;
+  margin-top: -245px;
+  margin-left: 64px;
+  font-size: 2.8rem;
+}
+
+.description3 {
+  color: white;
+  position: absolute;
+  margin-top: -180px;
+  margin-left: 64px;
+  font-size: 2.2rem;
+  font-weight: 400;
+}
+
+.paragraph3 {
+  font-size: 1.4rem;
+  margin: 20px 70px;
+}

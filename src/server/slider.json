@@ -1,44 +1,32 @@
 {
     "news": [
         {
-        "_id": "shirt1",
-        "image": "/images/a.png",
-        "title": "Cor de rosa ganhando o espaço!",
-        "description": "Blusa em decote canoa para lembrar que tem rosa no espaço sim! Blusa em decote canoa, com detalhes em rosa, nos lembra de Katherine Jonhson, Margaret Hamilton, Nancy Roman, Katie Bouman e tantas outras cientistas levaram o rosa para o espaço sideral! Criada para mulheres além do tempo e do espaço! ",
-        "availableSizes": ["XS", "S", "M", "L"],
-        "availableType": ["Feminina", "Infantil"],
-        "price": 69.19,
-        "quant": 1
+        "_id": "1",
+        "image": "../images/a.png",
+        "title": "LOREM IPSUM?",
+        "description": "Simply dummy text of the printing and typesetting industry",
+        "paragraph":"Lorem Ipsum has been the industry's standard dummy text ever sicne the 1500s, when an unknown printer took a galley os type and scrambled it. It has survived five centuries"
         },
         {
-        "_id": "shirt2",
+        "_id": "2",
         "image": "/images/b.png",
-        "title": "Camiseta de verão com detalhe espaço",
-        "description": "Ideal para amenizar o calor resultante do aquecimento global! Estampa exclusiva, em malha de algodão, para quem tem os pés na terra e a cabeça na lua! Descontração, conforto e estilo disponível em diversos tamanhos!",
-        "availableSizes": ["S", "L", "XL"],
-        "availableType": ["Feminina", "Infantil"],
-        "price": 56.85,
-        "quant": 1
+        "title": "WHY DO WE USE IT?",
+        "description": "It is a long established fact that a reader will be distracter by the readable content of page when looking at its layout" ,
+        "paragraph":""
         },
         {
-        "_id": "shirt3",
+        "_id": "3",
         "image": "/images/c.png",
-        "title": "Blusa astronauta manga longa",
-        "description": "Para aquelas e aqueles que sabem que o aquecimento global também baixa as temperaturas fora de hora! Siga os conselhos de sua mãe e tenha esse blusão quentinho sempre a mão para o caso de esfriar!",
-        "availableSizes": ["M", "L", "XL", "XXL"],  
-        "availableType": ["Feminina", "Masculina"],
-        "price": 87.50,
-        "quant": 1
+        "title": "WHERE DOES IT COME FROM?",
+        "description": "Contrary to popular belief, Lorem Ipsum is not random text",
+        "paragraph":""
         },
         {
-        "_id": "shirt4",
+        "_id": "4",
         "image": "/images/d.png",
-        "title": "Dab espacial!",
-        "description": "Celebre suas conquistas vestindo nosso Dab espacial! Para pessoas arrojadas que sabem que o céu não é o limite! Conforto e qualidade disponível em diversos tamanhos.",
-        "availableSizes": ["XS", "L", "XL", "XXL"],
-        "availableType": ["Feminina", "Infantil"],
-        "price": 35.90,
-        "quant": 1
+        "title": "WHERE CAN I GET SOME?",
+        "description": "There are many variations of passages of Lorem Ipsum",
+        "paragraph":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. The generated Lorem Ipsum is therefore always free from repetition."
         }
     ]
 }

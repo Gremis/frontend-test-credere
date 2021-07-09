@@ -1,9 +1,42 @@
 import React, { useState } from "react";
-import {} from "./Styled";
+import {
+  ContainerForm,
+  ContainerFormDetails,
+  ListDatesUl,
+  ListDatesLi,
+  ButtonRemove,
+  ButtonAdd,
+  ButtonAddClient,
+  InputForm,
+  InputFormDd,
+} from "./Styled";
 
 const Form = () => {
   const [phoneClient, setPhoneClient] = useState([]);
   const [emailClient, setEmailClient] = useState([]);
+  const [dateClient, setDateClient] = useState({
+    name: "",
+    birthday: "",
+    state: "",
+    phones: [
+      {
+        code: "",
+        number: "",
+      },
+    ],
+    emails: [
+      {
+        address: "",
+      },
+    ],
+    parent: {
+      name: "",
+      phone: {
+        code: "",
+        number: "",
+      },
+    },
+  });
 
   const handleAddNewPhone = () => {
     const newPhone = phoneClient.length > 0 ? phoneClient.slice(-1).pop() : 0;
@@ -35,124 +68,185 @@ const Form = () => {
     setEmailClient(newEmails);
   };
 
-  const onClickCreate = (e) => {
-    e.preventDefault();
-    // createTrip(form, clear);
+  const handleInputChange = (event) => {
+    setDateClient({
+      ...dateClient,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const today = new Date();
-  const stringToday =
-    today.getFullYear() +
-    "-" +
-    ("0" + (today.getMonth() + 1)).substr(-2) +
-    "-" +
-    ("0" + today.getDate()).substr(-2);
+  const onClickCreate = (event) => {
+    event.preventDefault();
+    console.log(dateClient);
+  };
 
   return (
-    <div>
-      <h1>Criar Cliente</h1>
+    <ContainerForm>
       <form onSubmit={onClickCreate}>
-        <div>
-          <h3>Cliente</h3>
-          <p>Nome</p>
-          <input
+        <ContainerFormDetails>
+          <h1>Cliente</h1>
+          <h4>Nome</h4>
+          <InputForm
             placeholder={"Nome do Cliente"}
             name={"name"}
-            pattern={"^.{5,}$"}
-            title={"O nome da viagem deve ter no mínimo 5 caracteres"}
+            onChange={handleInputChange}
             required
           />
-          <p>Data de nascimento</p>
-          <input
+          <h4>Data de nascimento</h4>
+          <InputForm
             placeholder={"dd/mm/aaaa"}
+            name={"birthday"}
+            onChange={handleInputChange}
             type={"date"}
-            name={"date"}
-            min={stringToday}
             required
           />
-          <p>Carteira de motorista</p>
-          <input placeholder={""} name={"description"} required />
-          <input
+          <h4>Carteira de motorista</h4>
+          <InputForm
+            placeholder={"12345678"}
+            name={"number"}
+            onChange={handleInputChange}
+            required
+          />
+          <InputForm
             placeholder={"dd/mm/aaaa"}
+            name={"issued_at"}
+            onChange={handleInputChange}
             type={"date"}
-            name={"date"}
-            min={stringToday}
             required
           />
-          <p>Estado</p>
-          <input
+          <h4>Estado</h4>
+          <InputForm
             placeholder={"Estado de nascimento"}
-            name={"description"}
+            name={"state"}
+            onChange={handleInputChange}
             required
           />
-          <p>Cidade</p>
-          <input
+          <h4>Cidade</h4>
+          <InputForm
             placeholder={"Cidade de nascimento"}
-            name={"description"}
+            name={"city"}
+            onChange={handleInputChange}
             required
           />
-          <h3>Telefones</h3>
+          <h2>Telefones</h2>
           {phoneClient.length >= 1 ? (
             <>
-              <input placeholder={"dd"} name={"description"} required />
-              <input placeholder={"número"} name={"description"} required />
-              <input type="radio" value="Principal" name="principal" />{" "}
+              <InputFormDd
+                placeholder={"dd"}
+                name="phones"
+                onChange={handleInputChange}
+                required
+              />
+              <InputForm
+                placeholder={"número"}
+                name="number"
+                onChange={handleInputChange}
+                required
+              />
+              <InputForm
+                type="radio"
+                value="Principal"
+                name="principal"
+                onChange={handleInputChange}
+              />{" "}
               Principal
-              <button>remover</button>
+              <ButtonRemove>remover</ButtonRemove>
             </>
           ) : (
             <>
-              <input placeholder={"dd"} name={"description"} required />
-              <input placeholder={"número"} name={"description"} required />
-              <button>remover</button>
+              <InputFormDd
+                placeholder={"dd"}
+                name={"code"}
+                onChange={handleInputChange}
+                required
+              />
+              <InputForm
+                placeholder={"número"}
+                name={"number"}
+                onChange={handleInputChange}
+                required
+              />
+              <ButtonRemove>remover</ButtonRemove>
             </>
           )}
-
-          <ul>
+          <ListDatesUl>
             {phoneClient.map((index) => (
-              <li key={index}>
-                <input placeholder={"dd"} name={"description"} required />
-                <input placeholder={"número"} name={"description"} required />
-                <input type="radio" value="Principal" name="principal" />{" "}
-                Principal
-                <button onClick={() => handleRemovePhone(index)}>
-                  remover
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleAddNewPhone}>adicionar mais</button>
-          <h3>E-mails</h3>
-          <input
-            placeholder={"email@exemplo.com"}
-            name={"description"}
-            required
-          />
-          <button>remover</button>
-          <ul>
-            {emailClient.map((index) => (
-              <li key={index}>
-                <input
-                  placeholder={"email@exemplo.com"}
-                  name={"description"}
+              <ListDatesLi key={index}>
+                <InputFormDd
+                  placeholder={"dd"}
+                  name={"code"}
+                  onChange={handleInputChange}
                   required
                 />
-                <button onClick={() => handleRemoveEmail(index)}>
+                <InputForm
+                  placeholder={"número"}
+                  name={"number"}
+                  onChange={handleInputChange}
+                  required
+                />
+                <InputForm
+                  type="radio"
+                  value="Principal"
+                  name="principal"
+                  onChange={handleInputChange}
+                />{" "}
+                Principal
+                <ButtonRemove onClick={() => handleRemovePhone(index)}>
                   remover
-                </button>
-              </li>
+                </ButtonRemove>
+              </ListDatesLi>
             ))}
-          </ul>
-          <button onClick={handleAddNewEmail}>adicionar mais</button>
-          <h3>Responsável</h3>
-          <p>Nome</p>
-          <input placeholder={""} name={"description"} required />
-          <p>Telefone</p>
-          <input placeholder={""} name={"description"} required />
-        </div>
-        <button type={"submit"}>Salvar Cliente</button>
+          </ListDatesUl>
+          <ButtonAdd onClick={handleAddNewPhone}>adicionar mais</ButtonAdd>
+          <h2>E-mails</h2>
+          <InputForm
+            placeholder={"email@exemplo.com"}
+            name={"address"}
+            onChange={handleInputChange}
+            required
+          />
+          <ButtonRemove>remover</ButtonRemove>
+          <ListDatesUl>
+            {emailClient.map((index) => (
+              <ListDatesLi key={index}>
+                <InputForm
+                  placeholder={"email@exemplo.com"}
+                  name={"address"}
+                  onChange={handleInputChange}
+                  required
+                />
+                <ButtonRemove onClick={() => handleRemoveEmail(index)}>
+                  remover
+                </ButtonRemove>
+              </ListDatesLi>
+            ))}
+          </ListDatesUl>
+          <ButtonAdd onClick={handleAddNewEmail}>adicionar mais</ButtonAdd>
+          <h2>Responsável</h2>
+          <h4>Nome</h4>
+          <InputForm
+            placeholder={"Responsável"}
+            name={"name"}
+            onChange={handleInputChange}
+            required
+          />
+          <h4>Telefone</h4>
+          <InputFormDd
+            placeholder={"dd"}
+            name={"code"}
+            onChange={handleInputChange}
+            required
+          />
+          <InputForm
+            placeholder={"número"}
+            name={"number"}
+            onChange={handleInputChange}
+            required
+          />{" "}
+        </ContainerFormDetails>
+        <ButtonAddClient type={"submit"}>Salvar Cliente</ButtonAddClient>
       </form>
-    </div>
+    </ContainerForm>
   );
 };
 
