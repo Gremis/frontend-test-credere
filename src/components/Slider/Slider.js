@@ -3,9 +3,9 @@ import slider from "../../server/slider.json";
 import "./Styled.css";
 
 function Slider() {
-  const [news, setNews] = useState([slider.news]);
+  const [news, setNews] = useState(slider.news);
   const [current, setCurrent] = useState(0);
-  const length = news[0].length;
+  const length = news.length;
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -18,7 +18,7 @@ function Slider() {
   return (
     <>
       <section className="slider">
-        {news[0].map((slide, index) => {
+        {news.map((slide, index) => {
           return (
             <div
               className={index === current ? "slide active" + index : "slide"}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import GlobalStateContext from "../../components/Global/GlobalStateContext";
 import Form from "../../components/Form/Form";
 import Details from "../../components/Details/Details";
 import {
@@ -11,8 +12,9 @@ import {
   ButtonController,
 } from "./Styled";
 
-function ListClients(props) {
+function ListClients() {
   const [showFormClient, setShowFormClient] = useState("start");
+  const { clients } = useContext(GlobalStateContext);
 
   const showForm = () => {
     setShowFormClient("add-client");
@@ -37,7 +39,7 @@ function ListClients(props) {
                 <TableMainTd>Nome do Cliente</TableMainTd>
                 <TableMainTd>Ações</TableMainTd>
               </TableMainTr>
-              {props.listClients[0].map((client) => (
+              {clients.map((client) => (
                 <TableMainTr>
                   <TableMainTd>{client.name}</TableMainTd>
                   <TableMainTd>

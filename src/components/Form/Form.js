@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import GlobalStateContext from "../../components/Global/GlobalStateContext";
 import {
   ContainerForm,
   ContainerFormDetails,
@@ -12,31 +13,15 @@ import {
 } from "./Styled";
 
 const Form = () => {
+  const { clients, setClients } = useContext(GlobalStateContext);
   const [phoneClient, setPhoneClient] = useState([]);
   const [emailClient, setEmailClient] = useState([]);
-  const [dateClient, setDateClient] = useState({
-    name: "",
-    birthday: "",
-    state: "",
-    phones: [
-      {
-        code: "",
-        number: "",
-      },
-    ],
-    emails: [
-      {
-        address: "",
-      },
-    ],
-    parent: {
-      name: "",
-      phone: {
-        code: "",
-        number: "",
-      },
-    },
-  });
+  const [dateClient, setDateClient] = useState({});
+  const [phones, setPhones] = useState([]);
+  const [emails, setEmails] = useState([]);
+  const [parent, setParent] = useState({});
+  const [clientId, setClientId] = useState(0);
+  const [newClient, setnewClient] = useState([]);
 
   const handleAddNewPhone = () => {
     const newPhone = phoneClient.length > 0 ? phoneClient.slice(-1).pop() : 0;
@@ -69,15 +54,70 @@ const Form = () => {
   };
 
   const handleInputChange = (event) => {
-    setDateClient({
-      ...dateClient,
-      [event.target.name]: event.target.value,
-    });
+    let name = event.target.name.split("_");
+    if (name[0] !== "emails" && name[0] !== "phones" && name[0] !== "parent") {
+      setDateClient({
+        ...dateClient,
+        [event.target.name]: event.target.value,
+      });
+    } else {
+      switch (name[0]) {
+        case "phones":
+          saveNewPhoneValue(name, event.target.value);
+          break;
+        case "emails":
+          emails[name[2]] = { id: name[2], address: event.target.value };
+          setEmails(emails);
+          break;
+        default:
+          saveParent(event.target.name, event.target.value);
+          break;
+      }
+    }
+  };
+
+  const saveNewPhoneValue = (field, value) => {
+    let index = field[2];
+    let name = field[1];
+    if (name === "code") {
+      phones[index] = { id: index, code: value };
+    } else if (name === "number") {
+      phones[index].number = value;
+      setPhones(phones);
+    } else {
+      let values = value.split("_");
+      let i = values[2];
+      phones[i].parameter = value;
+      setPhones(phones);
+    }
+  };
+
+  const saveParent = (field, value) => {
+    let data = field.split("_");
+    if (data[1] === "name") {
+      setParent({ id: 0, name: value });
+    } else {
+      if (data[2] === "code") {
+        parent.phone = { id: 0, code: value };
+        setParent(parent);
+      } else if (data[2] === "number") {
+        parent.phone.number = value;
+        setParent(parent);
+      }
+    }
   };
 
   const onClickCreate = (event) => {
     event.preventDefault();
-    console.log(dateClient);
+    let formData = dateClient;
+    formData.id = clientId;
+    formData.phones = [...phones];
+    formData.emails = [...emails];
+    formData.parent = parent;
+    if (clientId === 0) {
+      setClientId(clientId + 1);
+    }
+    setClients([...clients, formData]);
   };
 
   return (
@@ -133,20 +173,20 @@ const Form = () => {
             <>
               <InputFormDd
                 placeholder={"dd"}
-                name="phones"
+                name="phones_code_0"
                 onChange={handleInputChange}
                 required
               />
               <InputForm
                 placeholder={"número"}
-                name="number"
+                name="phones_number_0"
                 onChange={handleInputChange}
                 required
               />
               <InputForm
                 type="radio"
-                value="Principal"
-                name="principal"
+                value="phones_principal_0"
+                name="phones_principal"
                 onChange={handleInputChange}
               />{" "}
               Principal
@@ -156,13 +196,13 @@ const Form = () => {
             <>
               <InputFormDd
                 placeholder={"dd"}
-                name={"code"}
+                name={"phones_code_0"}
                 onChange={handleInputChange}
                 required
               />
               <InputForm
                 placeholder={"número"}
-                name={"number"}
+                name={"phones_number_0"}
                 onChange={handleInputChange}
                 required
               />
@@ -174,20 +214,20 @@ const Form = () => {
               <ListDatesLi key={index}>
                 <InputFormDd
                   placeholder={"dd"}
-                  name={"code"}
+                  name={"phones_code_" + index}
                   onChange={handleInputChange}
                   required
                 />
                 <InputForm
                   placeholder={"número"}
-                  name={"number"}
+                  name={"phones_number_" + index}
                   onChange={handleInputChange}
                   required
                 />
                 <InputForm
                   type="radio"
-                  value="Principal"
-                  name="principal"
+                  value={"phones_principal_" + index}
+                  name="phones_principal"
                   onChange={handleInputChange}
                 />{" "}
                 Principal
@@ -197,11 +237,13 @@ const Form = () => {
               </ListDatesLi>
             ))}
           </ListDatesUl>
-          <ButtonAdd onClick={handleAddNewPhone}>adicionar mais</ButtonAdd>
+          <ButtonAdd onClick={() => handleAddNewPhone()}>
+            adicionar mais
+          </ButtonAdd>
           <h2>E-mails</h2>
           <InputForm
             placeholder={"email@exemplo.com"}
-            name={"address"}
+            name={"emails_address_0"}
             onChange={handleInputChange}
             required
           />
@@ -211,7 +253,7 @@ const Form = () => {
               <ListDatesLi key={index}>
                 <InputForm
                   placeholder={"email@exemplo.com"}
-                  name={"address"}
+                  name={"emails_address_" + index}
                   onChange={handleInputChange}
                   required
                 />
@@ -226,20 +268,20 @@ const Form = () => {
           <h4>Nome</h4>
           <InputForm
             placeholder={"Responsável"}
-            name={"name"}
+            name={"parent_name"}
             onChange={handleInputChange}
             required
           />
           <h4>Telefone</h4>
           <InputFormDd
             placeholder={"dd"}
-            name={"code"}
+            name={"parent_phone_code"}
             onChange={handleInputChange}
             required
           />
           <InputForm
             placeholder={"número"}
-            name={"number"}
+            name={"parent_phone_number"}
             onChange={handleInputChange}
             required
           />{" "}
