@@ -8,6 +8,12 @@ export const ContainerFormDetails = styled.div`
   line-height: 20px;
 `;
 
+export const SelectOptions = styled.select`
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+`;
+
 export const InputForm = styled.input`
   width: 12%;
   padding: 5px 10px;

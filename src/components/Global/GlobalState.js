@@ -4,7 +4,6 @@ import index from "../../server/index.json";
 
 const GlobalState = (props) => {
   const [clients, setClients] = useState([]);
-  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     getClients();
@@ -17,8 +16,6 @@ const GlobalState = (props) => {
   const data = {
     clients,
     setClients,
-    messages,
-    setMessages,
   };
 
   return (

@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import GlobalStateContext from "../../components/Global/GlobalStateContext";
+import { states } from "../../constants/states";
 import {
   ContainerForm,
   ContainerFormDetails,
+  SelectOptions,
   ListDatesUl,
   ListDatesLi,
   ButtonRemove,
@@ -17,13 +19,16 @@ const Form = () => {
   const [inputPhoneRow, setInputPhoneRow] = useState([]);
   const [inputEmailRow, setInputEmailRow] = useState([]);
   const [dateClient, setDateClient] = useState({});
+  const [driverLicense, setDriverLicense] = useState({});
   const [phones, setPhones] = useState([]);
   const [emails, setEmails] = useState([]);
   const [parent, setParent] = useState({});
   const [clientId, setClientId] = useState(0);
+  const [isAdult, setIsAdult] = useState(false);
 
   const handleAddNewPhone = () => {
-    const newPhone = inputPhoneRow.length > 0 ? inputPhoneRow.slice(-1).pop() : 0;
+    const newPhone =
+      inputPhoneRow.length > 0 ? inputPhoneRow.slice(-1).pop() : 0;
     const newPhones = [...inputPhoneRow, newPhone + 1];
     if (inputPhoneRow.length <= 2) {
       setInputPhoneRow(newPhones);
@@ -38,7 +43,8 @@ const Form = () => {
   };
 
   const handleAddNewEmail = () => {
-    const newEmail = inputEmailRow.length > 0 ? inputEmailRow.slice(-1).pop() : 0;
+    const newEmail =
+      inputEmailRow.length > 0 ? inputEmailRow.slice(-1).pop() : 0;
     const newEmails = [...inputEmailRow, newEmail + 1];
     if (inputEmailRow.length <= 1) {
       setInputEmailRow(newEmails);
@@ -54,13 +60,25 @@ const Form = () => {
 
   const handleInputChange = (event) => {
     let name = event.target.name.split("_");
-    if (name[0] !== "emails" && name[0] !== "phones" && name[0] !== "parent") {
+    if (
+      name[0] !== "driver" &&
+      name[0] !== "emails" &&
+      name[0] !== "phones" &&
+      name[0] !== "parent"
+    ) {
+      if (name[0] === "birthday") {
+        ageValidation(event.target.value);
+      }
+
       setDateClient({
         ...dateClient,
         [event.target.name]: event.target.value,
       });
     } else {
       switch (name[0]) {
+        case "driver":
+          saveLicense(event.target.name, event.target.value);
+          break;
         case "phones":
           saveNewPhoneValue(name, event.target.value);
           break;
@@ -72,6 +90,33 @@ const Form = () => {
           saveParent(event.target.name, event.target.value);
           break;
       }
+    }
+  };
+
+  const saveLicense = (field, value) => {
+    let data = field.split("_");
+    if (data[2] === "number") {
+      setDriverLicense({ id: 0, number: value });
+    } else {
+      driverLicense.issued_at = value;
+      setDriverLicense(driverLicense);
+    }
+  };
+
+  const ageValidation = (birthday) => {
+    const today = new Date();
+    const birthdayAge = new Date(birthday);
+    let age = today.getFullYear() - birthdayAge.getFullYear();
+    const m = today.getMonth() - birthdayAge.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthdayAge.getDate())) {
+      age--;
+    }
+
+    if (age >= 18) {
+      setIsAdult(true);
+    } else {
+      setIsAdult(false);
     }
   };
 
@@ -110,6 +155,7 @@ const Form = () => {
     event.preventDefault();
     let formData = dateClient;
     formData.id = clientId;
+    formData.driver_license = driverLicense;
     formData.phones = [...phones];
     formData.emails = [...emails];
     formData.parent = parent;
@@ -117,6 +163,7 @@ const Form = () => {
       setClientId(clientId + 1);
     }
     setClients([...clients, formData]);
+    event.target.reset();
   };
 
   return (
@@ -129,6 +176,8 @@ const Form = () => {
             placeholder={"Nome do Cliente"}
             name={"name"}
             onChange={handleInputChange}
+            title="Nome aceita somente letras e espaços em branco"
+            pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
             required
           />
           <h4>Data de nascimento</h4>
@@ -139,40 +188,61 @@ const Form = () => {
             type={"date"}
             required
           />
-          <h4>Carteira de motorista</h4>
-          <InputForm
-            placeholder={"12345678"}
-            name={"number"}
-            onChange={handleInputChange}
-            required
-          />
-          <InputForm
-            placeholder={"dd/mm/aaaa"}
-            name={"issued_at"}
-            onChange={handleInputChange}
-            type={"date"}
-            required
-          />
+          {isAdult ? (
+            <>
+              <h4>Carteira de motorista</h4>
+              <InputForm
+                placeholder={"12345678"}
+                name="driver_license_number"
+                onChange={handleInputChange}
+                required
+              />
+              <InputForm
+                placeholder={"dd/mm/aaaa"}
+                name="driver_license_issued_at"
+                onChange={handleInputChange}
+                type={"date"}
+                required
+              />
+            </>
+          ) : (
+            ""
+          )}
           <h4>Estado</h4>
-          <InputForm
-            placeholder={"Estado de nascimento"}
-            name={"state"}
-            onChange={handleInputChange}
-            required
-          />
-          <h4>Cidade</h4>
-          <InputForm
-            placeholder={"Cidade de nascimento"}
-            name={"city"}
-            onChange={handleInputChange}
-            required
-          />
+          <SelectOptions name={"state"} onChange={handleInputChange} required>
+            <option value={""}>Estado de nascimento</option>
+            {states.map((state) => {
+              return (
+                <option value={state} key={state}>
+                  {state}
+                </option>
+              );
+            })}
+          </SelectOptions>
+          {dateClient.state === "RN" && driverLicense.number[0] === '6' ? (
+            <>
+              <h4>Cidade</h4>
+              <InputForm
+                placeholder={"Cidade de nascimento"}
+                name={"city"}
+                onChange={handleInputChange}
+                pattern={"^.{4,}$"}
+                title={"O nome da cidade deve ter no mínimo 4 caracteres"}
+                required
+              />
+            </>
+          ) : (
+            ""
+          )}
+
           <h2>Telefones</h2>
           {inputPhoneRow.length >= 1 ? (
             <>
               <InputFormDd
                 placeholder={"dd"}
                 name="phones_code_0"
+                type={"number"}
+                max={99}
                 onChange={handleInputChange}
                 required
               />
@@ -187,6 +257,7 @@ const Form = () => {
                 value="phones_principal_0"
                 name="phones_principal"
                 onChange={handleInputChange}
+                required
               />{" "}
               Principal
               <ButtonRemove>remover</ButtonRemove>
@@ -196,6 +267,8 @@ const Form = () => {
               <InputFormDd
                 placeholder={"dd"}
                 name={"phones_code_0"}
+                type={"number"}
+                max={99}
                 onChange={handleInputChange}
                 required
               />
@@ -214,6 +287,8 @@ const Form = () => {
                 <InputFormDd
                   placeholder={"dd"}
                   name={"phones_code_" + index}
+                  type={"number"}
+                  max={99}
                   onChange={handleInputChange}
                   required
                 />
@@ -228,6 +303,7 @@ const Form = () => {
                   value={"phones_principal_" + index}
                   name="phones_principal"
                   onChange={handleInputChange}
+                  required
                 />{" "}
                 Principal
                 <ButtonRemove onClick={() => handleRemovePhone(index)}>
@@ -243,6 +319,8 @@ const Form = () => {
           <InputForm
             placeholder={"email@exemplo.com"}
             name={"emails_address_0"}
+            title="Email não está correto"
+            pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
             onChange={handleInputChange}
             required
           />
@@ -253,6 +331,8 @@ const Form = () => {
                 <InputForm
                   placeholder={"email@exemplo.com"}
                   name={"emails_address_" + index}
+                  title="Email não está correto"
+                  pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
                   onChange={handleInputChange}
                   required
                 />
@@ -263,27 +343,39 @@ const Form = () => {
             ))}
           </ListDatesUl>
           <ButtonAdd onClick={handleAddNewEmail}>adicionar mais</ButtonAdd>
-          <h2>Responsável</h2>
-          <h4>Nome</h4>
-          <InputForm
-            placeholder={"Responsável"}
-            name={"parent_name"}
-            onChange={handleInputChange}
-            required
-          />
-          <h4>Telefone</h4>
-          <InputFormDd
-            placeholder={"dd"}
-            name={"parent_phone_code"}
-            onChange={handleInputChange}
-            required
-          />
-          <InputForm
-            placeholder={"número"}
-            name={"parent_phone_number"}
-            onChange={handleInputChange}
-            required
-          />{" "}
+
+          {isAdult ? (
+            " "
+          ) : (
+            <>
+              {" "}
+              <h2>Responsável</h2>
+              <h4>Nome</h4>
+              <InputForm
+                placeholder={"Responsável"}
+                name={"parent_name"}
+                onChange={handleInputChange}
+                title="Nome aceita somente letras e espaços em branco"
+                pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
+                required
+              />
+              <h4>Telefone</h4>
+              <InputFormDd
+                placeholder={"dd"}
+                name={"parent_phone_code"}
+                type={"number"}
+                max={99}
+                onChange={handleInputChange}
+                required
+              />
+              <InputForm
+                placeholder={"número"}
+                name={"parent_phone_number"}
+                onChange={handleInputChange}
+                required
+              />
+            </>
+          )}
         </ContainerFormDetails>
         <ButtonAddClient type={"submit"}>Salvar Cliente</ButtonAddClient>
       </form>

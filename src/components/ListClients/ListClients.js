@@ -15,6 +15,8 @@ import {
 function ListClients() {
   const [showFormClient, setShowFormClient] = useState("start");
   const { clients } = useContext(GlobalStateContext);
+  const [showClient, setShowClient] = useState({});
+
 
   const showForm = () => {
     setShowFormClient("add-client");
@@ -24,7 +26,8 @@ function ListClients() {
     setShowFormClient("start");
   };
 
-  const showDetails = () => {
+  const showDetails = (client) => {
+    setShowClient(client);
     setShowFormClient("show-client");
   };
 
@@ -40,11 +43,11 @@ function ListClients() {
                 <TableMainTd>Ações</TableMainTd>
               </TableMainTr>
               {clients.map((client) => (
-                <TableMainTr>
+                <TableMainTr key={client.id}>
                   <TableMainTd>{client.name}</TableMainTd>
                   <TableMainTd>
                     <ContainerButtons>
-                      <ButtonController onClick={showDetails}>
+                      <ButtonController onClick={() => showDetails(client)}>
                         Mostrar Detalhes
                       </ButtonController>
                       <ButtonController>Editar</ButtonController>
@@ -78,7 +81,7 @@ function ListClients() {
               Voltar à lista de clientes
             </ButtonController>
           </ContainerButtons>
-          <Details />
+          <Details client={showClient} key={showClient.id}/>
         </>
       )}
     </>
