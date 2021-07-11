@@ -14,43 +14,42 @@ import {
 
 const Form = () => {
   const { clients, setClients } = useContext(GlobalStateContext);
-  const [phoneClient, setPhoneClient] = useState([]);
-  const [emailClient, setEmailClient] = useState([]);
+  const [inputPhoneRow, setInputPhoneRow] = useState([]);
+  const [inputEmailRow, setInputEmailRow] = useState([]);
   const [dateClient, setDateClient] = useState({});
   const [phones, setPhones] = useState([]);
   const [emails, setEmails] = useState([]);
   const [parent, setParent] = useState({});
   const [clientId, setClientId] = useState(0);
-  const [newClient, setnewClient] = useState([]);
 
   const handleAddNewPhone = () => {
-    const newPhone = phoneClient.length > 0 ? phoneClient.slice(-1).pop() : 0;
-    const newPhones = [...phoneClient, newPhone + 1];
-    if (phoneClient.length <= 2) {
-      setPhoneClient(newPhones);
+    const newPhone = inputPhoneRow.length > 0 ? inputPhoneRow.slice(-1).pop() : 0;
+    const newPhones = [...inputPhoneRow, newPhone + 1];
+    if (inputPhoneRow.length <= 2) {
+      setInputPhoneRow(newPhones);
     } else {
       alert("Máximo 4 telefones por cliente");
     }
   };
 
   const handleRemovePhone = (value) => {
-    const newPhones = phoneClient.filter((index) => index !== value);
-    setPhoneClient(newPhones);
+    const newPhones = inputPhoneRow.filter((index) => index !== value);
+    setInputPhoneRow(newPhones);
   };
 
   const handleAddNewEmail = () => {
-    const newEmail = emailClient.length > 0 ? emailClient.slice(-1).pop() : 0;
-    const newEmails = [...emailClient, newEmail + 1];
-    if (emailClient.length <= 1) {
-      setEmailClient(newEmails);
+    const newEmail = inputEmailRow.length > 0 ? inputEmailRow.slice(-1).pop() : 0;
+    const newEmails = [...inputEmailRow, newEmail + 1];
+    if (inputEmailRow.length <= 1) {
+      setInputEmailRow(newEmails);
     } else {
       alert("Máximo 3 e-mails por cliente");
     }
   };
 
   const handleRemoveEmail = (value) => {
-    const newEmails = emailClient.filter((index) => index !== value);
-    setEmailClient(newEmails);
+    const newEmails = inputEmailRow.filter((index) => index !== value);
+    setInputEmailRow(newEmails);
   };
 
   const handleInputChange = (event) => {
@@ -169,7 +168,7 @@ const Form = () => {
             required
           />
           <h2>Telefones</h2>
-          {phoneClient.length >= 1 ? (
+          {inputPhoneRow.length >= 1 ? (
             <>
               <InputFormDd
                 placeholder={"dd"}
@@ -210,7 +209,7 @@ const Form = () => {
             </>
           )}
           <ListDatesUl>
-            {phoneClient.map((index) => (
+            {inputPhoneRow.map((index) => (
               <ListDatesLi key={index}>
                 <InputFormDd
                   placeholder={"dd"}
@@ -249,7 +248,7 @@ const Form = () => {
           />
           <ButtonRemove>remover</ButtonRemove>
           <ListDatesUl>
-            {emailClient.map((index) => (
+            {inputEmailRow.map((index) => (
               <ListDatesLi key={index}>
                 <InputForm
                   placeholder={"email@exemplo.com"}

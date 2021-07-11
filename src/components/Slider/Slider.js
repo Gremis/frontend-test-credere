@@ -3,7 +3,7 @@ import slider from "../../server/slider.json";
 import "./Styled.css";
 
 function Slider() {
-  const [news, setNews] = useState(slider.news);
+  const [news] = useState(slider.news);
   const [current, setCurrent] = useState(0);
   const length = news.length;
 
