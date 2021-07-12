@@ -38,14 +38,14 @@ function Slider() {
                     </h3>
                     <p className={"paragraph" + index}>{slide.paragraph}</p>
                   </div>
+                  <button className="right-arrow" onClick={nextSlide}>
+                    Próximo
+                  </button>
                 </>
               )}
             </div>
           );
         })}
-        <button className="right-arrow" onClick={nextSlide}>
-          Próximo
-        </button>
       </section>
     </>
   );
