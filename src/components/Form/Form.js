@@ -170,7 +170,7 @@ const Form = () => {
     }
     setClients([...clients, formData]);
     MySwal.fire(
-      "Usuário criado com sucesso!",
+      "Cliente criado com sucesso!",
       "Volte à lista de clientes para ver mais detalhes!",
       "success"
     );

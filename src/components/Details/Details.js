@@ -78,7 +78,7 @@ function Details(props) {
                 <div>
                   {"("}
                   {phone.code}
-                  {")"}- {phone.number}
+                  {")"} - {phone.number} 
                 </div>
               ))}
             </TableMainTd>
