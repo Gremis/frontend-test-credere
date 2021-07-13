@@ -75,6 +75,9 @@ O estado muda de acordo à função:
 
 - A cidade pode ser preenchida se o estado é RN e a carteira de motorista começa com 6:
 
+![](images_readme/state.png)
+
+
 Condicionei o input da cidade para que apareça somente quando existam as duas condições:
 
 ![](images_readme/isage.png)
