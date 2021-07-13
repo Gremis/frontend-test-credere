@@ -154,7 +154,7 @@ Tamanho de tela 320:
 - No total o fluxo e a componetizaçao da aplicação ficou da seguinte forma:
 
 
-![](diagrama.png)
+![](images_readme/diagrama.png)
 
 
 - O que não funciona:
