@@ -4,11 +4,11 @@ import {
   CardContainer,
   TableMain,
   TableMainTr,
+  TableMainTdTitle,
   TableMainTd,
 } from "./Styled";
 
 function Details(props) {
-  console.log(props);
   const driver = props.client.driver_license;
   const parent = props.client.parent;
 
@@ -35,17 +35,19 @@ function Details(props) {
       <CardContainer>
         <TableMain>
           <TableMainTr>
-            <TableMainTd>Nome do Cliente</TableMainTd>
+            <TableMainTdTitle>Nome do Cliente</TableMainTdTitle>
             <TableMainTd>{props.client.name}</TableMainTd>
           </TableMainTr>
           <TableMainTr>
-            <TableMainTd>Data de Nascimento</TableMainTd>
+            <TableMainTdTitle>Data de Nascimento</TableMainTdTitle>
             <TableMainTd>{props.client.birthday}</TableMainTd>
           </TableMainTr>
           {driver && ageValidation(props.client.birthday) ? (
             <>
               <TableMainTr>
-                <TableMainTd>Carteira de Motorista - Data</TableMainTd>
+                <TableMainTdTitle>
+                  Carteira de Motorista - Data
+                </TableMainTdTitle>
                 <TableMainTd>
                   {driver.number} / {driver.issued_at}
                 </TableMainTd>
@@ -55,13 +57,13 @@ function Details(props) {
             ""
           )}
           <TableMainTr>
-            <TableMainTd>Estado</TableMainTd>
+            <TableMainTdTitle>Estado</TableMainTdTitle>
             <TableMainTd>{props.client.state}</TableMainTd>
           </TableMainTr>
           {props.client.city ? (
             <>
               <TableMainTr>
-                <TableMainTd>Cidade</TableMainTd>
+                <TableMainTdTitle>Cidade</TableMainTdTitle>
                 <TableMainTd>{props.client.city}</TableMainTd>
               </TableMainTr>
             </>
@@ -70,7 +72,7 @@ function Details(props) {
           )}
 
           <TableMainTr>
-            <TableMainTd>Telefones</TableMainTd>
+            <TableMainTdTitle>Telefones</TableMainTdTitle>
             <TableMainTd>
               {props.client.phones.map((phone) => (
                 <div>
@@ -82,7 +84,7 @@ function Details(props) {
             </TableMainTd>
           </TableMainTr>
           <TableMainTr>
-            <TableMainTd>E-mails</TableMainTd>
+            <TableMainTdTitle>E-mails</TableMainTdTitle>
             <TableMainTd>
               {props.client.emails.map((email) => (
                 <div>{email.address}</div>
@@ -93,7 +95,7 @@ function Details(props) {
             <>
               {" "}
               <TableMainTr>
-                <TableMainTd>Responsável</TableMainTd>
+                <TableMainTdTitle>Responsável</TableMainTdTitle>
                 <TableMainTd>
                   <div>
                     {parent.name} - {"("}

@@ -8,11 +8,15 @@ import {
   ListDatesUl,
   ListDatesLi,
   ButtonRemove,
+  InputFormPhone,
+  InputFormEmail,
   ButtonAdd,
   ButtonAddClient,
   InputForm,
   InputFormDd,
 } from "./Styled";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Form = () => {
   const { clients, setClients } = useContext(GlobalStateContext);
@@ -151,6 +155,8 @@ const Form = () => {
     }
   };
 
+  const MySwal = withReactContent(Swal);
+
   const onClickCreate = (event) => {
     event.preventDefault();
     let formData = dateClient;
@@ -163,6 +169,11 @@ const Form = () => {
       setClientId(clientId + 1);
     }
     setClients([...clients, formData]);
+    MySwal.fire(
+      "Usuário criado com sucesso!",
+      "Volte à lista de clientes para ver mais detalhes!",
+      "success"
+    );
     event.target.reset();
   };
 
@@ -170,8 +181,8 @@ const Form = () => {
     <ContainerForm>
       <form onSubmit={onClickCreate}>
         <ContainerFormDetails>
-          <h1>Cliente</h1>
-          <h4>Nome</h4>
+          <h1> Cliente </h1>
+          <h4> Nome </h4>{" "}
           <InputForm
             placeholder={"Nome do Cliente"}
             name={"name"}
@@ -180,17 +191,17 @@ const Form = () => {
             pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
             required
           />
-          <h4>Data de nascimento</h4>
+          <h4> Data de nascimento </h4>{" "}
           <InputForm
             placeholder={"dd/mm/aaaa"}
             name={"birthday"}
             onChange={handleInputChange}
             type={"date"}
             required
-          />
+          />{" "}
           {isAdult ? (
             <>
-              <h4>Carteira de motorista</h4>
+              <h4> Carteira de motorista </h4>{" "}
               <InputForm
                 placeholder={"12345678"}
                 name="driver_license_number"
@@ -207,21 +218,22 @@ const Form = () => {
             </>
           ) : (
             ""
-          )}
-          <h4>Estado</h4>
+          )}{" "}
+          <h4> Estado </h4>{" "}
           <SelectOptions name={"state"} onChange={handleInputChange} required>
-            <option value={""}>Estado de nascimento</option>
-            {states.map((state) => {
+            <option value={""}> Estado de nascimento </option>{" "}
+            {states && states.map((state) => {
               return (
                 <option value={state} key={state}>
-                  {state}
+                  {" "}
+                  {state}{" "}
                 </option>
               );
-            })}
-          </SelectOptions>
-          {dateClient.state === "RN" && driverLicense.number[0] === '6' ? (
+            })}{" "}
+          </SelectOptions>{" "}
+          {dateClient.state === "RN" && driverLicense.number[0] === "6" ? (
             <>
-              <h4>Cidade</h4>
+              <h4> Cidade </h4>{" "}
               <InputForm
                 placeholder={"Cidade de nascimento"}
                 name={"city"}
@@ -234,8 +246,7 @@ const Form = () => {
           ) : (
             ""
           )}
-
-          <h2>Telefones</h2>
+          <h2> Telefones </h2>{" "}
           {inputPhoneRow.length >= 1 ? (
             <>
               <InputFormDd
@@ -246,7 +257,7 @@ const Form = () => {
                 onChange={handleInputChange}
                 required
               />
-              <InputForm
+              <InputFormPhone
                 placeholder={"número"}
                 name="phones_number_0"
                 onChange={handleInputChange}
@@ -260,7 +271,6 @@ const Form = () => {
                 required
               />{" "}
               Principal
-              <ButtonRemove>remover</ButtonRemove>
             </>
           ) : (
             <>
@@ -272,16 +282,16 @@ const Form = () => {
                 onChange={handleInputChange}
                 required
               />
-              <InputForm
+              <InputFormPhone
                 placeholder={"número"}
                 name={"phones_number_0"}
                 onChange={handleInputChange}
                 required
               />
-              <ButtonRemove>remover</ButtonRemove>
             </>
-          )}
+          )}{" "}
           <ListDatesUl>
+            {" "}
             {inputPhoneRow.map((index) => (
               <ListDatesLi key={index}>
                 <InputFormDd
@@ -292,7 +302,7 @@ const Form = () => {
                   onChange={handleInputChange}
                   required
                 />
-                <InputForm
+                <InputFormPhone
                   placeholder={"número"}
                   name={"phones_number_" + index}
                   onChange={handleInputChange}
@@ -305,18 +315,18 @@ const Form = () => {
                   onChange={handleInputChange}
                   required
                 />{" "}
-                Principal
+                Principal{" "}
                 <ButtonRemove onClick={() => handleRemovePhone(index)}>
-                  remover
-                </ButtonRemove>
+                  Remover{" "}
+                </ButtonRemove>{" "}
               </ListDatesLi>
-            ))}
-          </ListDatesUl>
+            ))}{" "}
+          </ListDatesUl>{" "}
           <ButtonAdd onClick={() => handleAddNewPhone()}>
-            adicionar mais
-          </ButtonAdd>
-          <h2>E-mails</h2>
-          <InputForm
+            Adicionar mais{" "}
+          </ButtonAdd>{" "}
+          <h2> E-mails </h2>{" "}
+          <InputFormEmail
             placeholder={"email@exemplo.com"}
             name={"emails_address_0"}
             title="Email não está correto"
@@ -324,11 +334,11 @@ const Form = () => {
             onChange={handleInputChange}
             required
           />
-          <ButtonRemove>remover</ButtonRemove>
           <ListDatesUl>
+            {" "}
             {inputEmailRow.map((index) => (
               <ListDatesLi key={index}>
-                <InputForm
+                <InputFormEmail
                   placeholder={"email@exemplo.com"}
                   name={"emails_address_" + index}
                   title="Email não está correto"
@@ -337,20 +347,18 @@ const Form = () => {
                   required
                 />
                 <ButtonRemove onClick={() => handleRemoveEmail(index)}>
-                  remover
-                </ButtonRemove>
+                  Remover{" "}
+                </ButtonRemove>{" "}
               </ListDatesLi>
-            ))}
-          </ListDatesUl>
-          <ButtonAdd onClick={handleAddNewEmail}>adicionar mais</ButtonAdd>
-
+            ))}{" "}
+          </ListDatesUl>{" "}
+          <ButtonAdd onClick={handleAddNewEmail}> Adicionar mais </ButtonAdd>
           {isAdult ? (
             " "
           ) : (
             <>
               {" "}
-              <h2>Responsável</h2>
-              <h4>Nome</h4>
+              <h2> Responsável </h2> <h4> Nome </h4>{" "}
               <InputForm
                 placeholder={"Responsável"}
                 name={"parent_name"}
@@ -359,7 +367,7 @@ const Form = () => {
                 pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
                 required
               />
-              <h4>Telefone</h4>
+              <h4> Telefone </h4>{" "}
               <InputFormDd
                 placeholder={"dd"}
                 name={"parent_phone_code"}
@@ -368,17 +376,17 @@ const Form = () => {
                 onChange={handleInputChange}
                 required
               />
-              <InputForm
+              <InputFormPhone
                 placeholder={"número"}
                 name={"parent_phone_number"}
                 onChange={handleInputChange}
                 required
               />
             </>
-          )}
-        </ContainerFormDetails>
-        <ButtonAddClient type={"submit"}>Salvar Cliente</ButtonAddClient>
-      </form>
+          )}{" "}
+        </ContainerFormDetails>{" "}
+        <ButtonAddClient type={"submit"}> Salvar Cliente </ButtonAddClient>{" "}
+      </form>{" "}
     </ContainerForm>
   );
 };

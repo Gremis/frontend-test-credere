@@ -1,27 +1,49 @@
 import styled from "styled-components";
 
-export const ContainerForm = styled.div `
-  padding: 10px;
-  font-size: 1.2rem;
+export const ContainerForm = styled.div`
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #b98f8f;
+  border-radius: 8px;
+  h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+  }
 `;
 
-export const ContainerFormDetails = styled.div `
+export const ContainerFormDetails = styled.div`
   line-height: 20px;
 `;
 
-export const SelectOptions = styled.select `
+export const SelectOptions = styled.select`
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
 `;
 
-export const InputForm = styled.input `
-  width: 12%;
-  padding: 5px 10px;
-  display: inline-block;
+export const InputForm = styled.input`
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  border-radius: 4px;
-  box-sizing: border-box;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
   ::placeholder {
     font-style: italic;
     font-size: 0.8rem;
@@ -29,73 +51,123 @@ export const InputForm = styled.input `
     font-weight: bold;
   }
   &[type="radio"] {
-    margin: -80px;
-  }
-  @media (max-width: 415px) {
-    width: 45%;
-    &[type="radio"] {
-      margin: -70px;
-    }
+    margin: -165px;
   }
 `;
 
-export const InputFormDd = styled.input `
-  width: 5%;
-  padding: 5px 10px;
-  display: inline-block;
+export const InputFormPhone = styled.input`
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  border-radius: 4px;
-  box-sizing: border-box;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 40%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 15px;
   ::placeholder {
     font-style: italic;
     font-size: 0.8rem;
     color: #c6c7c5;
     font-weight: bold;
   }
-  @media (max-width: 415px) {
-    width: 15%;
+`;
+
+export const InputFormDd = styled.input`
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 23%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 15px;
+  ::placeholder {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #c6c7c5;
+    font-weight: bold;
   }
 `;
 
-export const ButtonRemove = styled.button `
-  background-color: white;
+export const InputFormEmail = styled.input`
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  color: #ad2737;
-  font-weight: bold;
-  font-style: italic;
-  text-decoration: underline;
-  font-size: 0.9rem;
-  cursor: pointer;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 75%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
+  ::placeholder {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #c6c7c5;
+    font-weight: bold;
+  }
 `;
 
-export const ButtonAdd = styled.button `
-  background-color: white;
-  border: none;
-  color: #0366d6;
-  font-weight: bold;
+export const ButtonRemove = styled.button`
+  text-decoration: none;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: helvetica;
+  font-weight: 300;
+  font-size: 15px;
   font-style: italic;
-  text-decoration: underline;
-  font-size: 0.9rem;
+  background-color: #ad2737;
+  border-radius: 15px;
+  color: white;
   cursor: pointer;
+  margin-bottom: 18px;
 `;
 
-export const ButtonAddClient = styled.button `
-  background-color: white;
-  border: none;
-  color: #0366d6;
-  font-weight: bold;
+export const ButtonAdd = styled.button`
+  text-decoration: none;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: helvetica;
+  font-weight: 300;
+  font-size: 15px;
   font-style: italic;
-  text-decoration: underline;
-  font-size: 1.1rem;
+  background-color: #0366d6;
+  border-radius: 15px;
+  color: white;
   cursor: pointer;
-  margin-top: 25px;
+  margin-bottom: 18px;
 `;
 
-export const ListDatesUl = styled.ul `
+export const ButtonAddClient = styled.button`
+  padding: 19px 39px 18px 39px;
+  color: #fff;
+  background-color: #f52f00;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+`;
+
+export const ListDatesUl = styled.ul`
   margin-left: -41px;
   margin-top: -1px;
 `;
 
-export const ListDatesLi = styled.li `
+export const ListDatesLi = styled.li`
   list-style: none;
 `;

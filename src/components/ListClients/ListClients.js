@@ -8,6 +8,7 @@ import {
   TableMain,
   TableMainTr,
   TableMainTd,
+  TableMainTdTitle,
   ContainerButtons,
   ButtonController,
 } from "./Styled";
@@ -16,7 +17,6 @@ function ListClients() {
   const [showFormClient, setShowFormClient] = useState("start");
   const { clients } = useContext(GlobalStateContext);
   const [showClient, setShowClient] = useState({});
-
 
   const showForm = () => {
     setShowFormClient("add-client");
@@ -39,8 +39,8 @@ function ListClients() {
           <CardContainer>
             <TableMain>
               <TableMainTr>
-                <TableMainTd>Nome do Cliente</TableMainTd>
-                <TableMainTd>Ações</TableMainTd>
+                <TableMainTdTitle>Nome do Cliente</TableMainTdTitle>
+                <TableMainTdTitle>Ações</TableMainTdTitle>
               </TableMainTr>
               {clients.map((client) => (
                 <TableMainTr key={client.id}>
@@ -81,7 +81,7 @@ function ListClients() {
               Voltar à lista de clientes
             </ButtonController>
           </ContainerButtons>
-          <Details client={showClient} key={showClient.id}/>
+          <Details client={showClient} key={showClient.id} />
         </>
       )}
     </>

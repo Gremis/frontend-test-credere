@@ -582,6 +582,12 @@
         width: 173px;
         object-fit: cover;
     }
+    .title1 {
+        margin-left: 10px;
+    }
+    .description1 {
+        font-size: 0.85rem;
+    }
     .description3 {
         font-size: 0.85rem;
         padding: 4px;
