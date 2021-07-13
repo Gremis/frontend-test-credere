@@ -31,29 +31,21 @@ A primeira coisa que fiz para abordar a situação foi tratar todos os dados dos
 
 ![](images_readme/mockup_api.png)
 
-Depois que os dados adquiriram o mesmo formato que a API, juntei os dois arrays que ficaram: um array que já continha 2 clientes registrados (arquivo index.json) junto com os futuros clientes por registrar(dados que vem do submit, nesse caso tem o nome de FormData).
+Depois que os dados adquiriram o mesmo formato que a API, juntei os dois arrays que ficaram: um array que já continha 2 clientes registrados (arquivo `index.json`) junto com os futuros clientes por registrar(dados que vem do submit, nesse caso tem o nome de FormData).
 
 Para fazer a união e manipulação dos arquivos existentes e o novo, decidi usar useContext, onde criei um estado global, que contém os arquivos que simulam a API. Com isto foi possível passar informações aos filhos e vice-versa.
 
 ![](images_readme/join_mockup.png)
 
-Desta forma passei as informações do index.json até o arquivo form.js e juntei os dados, dentro do arquivo form.js atualizei o state global dos dados dos clientes com a intenção que ao mostrar a lista de clientes (processo que acontece no componente ListClient) poderá renderizar um único array tanto os clientes que já existem na API como os que vão ser criados, ou seja renderizar o novo estado dos clientes.
+Desta forma passei as informações do `index.json` até o componente `form.js` e juntei os dados. Já dentro do componente `form.js` atualizei o state global dos dados dos clientes com a intenção que ao mostrar a lista de clientes (processo que acontece no componente ListClient) poderá renderizar um único array tanto os clientes que já existem na API como os que vão ser criados, ou seja renderizar o novo estado dos clientes.
 
-Posteriormente, percibi que tinha um arquivo "show.json" no teste, então imaginei que seria legal o usuário poder entrar nos detalhes de cada cliente. Por isso foi que criei o botão de mostrar detalhes. Para fazer isto acontecer, trabalhei com o componente ListClient que já possuía o estado de clientes atualizados e dessa forma usando o id de cada cliente, pude repassar essas informações ao componente DetailsClients, renderizando dessa forma mais informações de cada cliente.
+Posteriormente, percibi que tinha um arquivo `show.json` no teste, então imaginei que seria legal o usuário poder entrar nos detalhes de cada cliente. Por isso foi que criei o botão de mostrar detalhes. Para fazer isto acontecer, trabalhei com o componente ListClient que já possuía o estado de clientes atualizados e dessa forma usando o id de cada cliente, pude repassar essas informações ao componente DetailsClients, renderizando dessa forma mais informações de cada cliente.
 
 - Um leitor de novidades
 
 Para abordar esta situação a primeira coisa que fiz foi criar um arquivo json que englobara todas as informações das novidades para que convergeram em um ponto comum de dados e dessa forma ao renderizar elas percorrer um array.
 
-Desta forma percibi que o ponto comum de todas eram:
-
-Imagem
-
-Título
-
-Descrição
-
-Parágrafo (Somente 2 imagens possuíam este item). O que fiz foi criar o parágrafo em todas e deixar 2 das novidades vazias, pois no futuro podem conter um.
+Desta forma percibi que o ponto comum de todas eram: `Imagem`, `Título`, `Descrição` e `Parágrafo` (Somente 2 imagens possuíam este item). O que fiz foi criar o parágrafo em todas e deixar 2 das novidades vazias, pois no futuro podem conter um.
 
 Percorri o array e de acordo com o index de casa novidade modifiquei em um arquivo css o estilo de cada card de novidades para que ficassem parecidas com os modelos do teste.
 
@@ -177,7 +169,7 @@ Não criei novos slides.
 
 - Bugs que percibi dentro da aplicação
 
-Preenchimento dos telefones do cliente e do responsável: O fluxo do código é que o usuário preencha primeiro o dd e depois o número de telefone, no caso contrario o sistema alerta: "Cannot set property 'number' of undefined".
+Preenchimento dos telefones do cliente e do responsável: O fluxo do código é que o usuário preencha primeiro o dd e depois o número de telefone, no caso contrario o sistema alerta: `Cannot set property 'number' of undefined`.
 
 ![](bug_phone.png)
 
@@ -200,44 +192,32 @@ _Linha 4:_ temos a importação para App que está chamando o arquivo App.js no 
 
 _Linha 6:_ é aquela usada pelo React, que adiciona o código que falta ao documento HTML (a imagem, o parágrafo e o link). O que ReactDOM.render realmente faz (que eu quero pintar, onde eu quero pintá-lo) é adicionar um componente dentro do elemento do elemento com id "root" de index.html usando a instrução JavaScript document.getElementById ("root") .
 
-- componentes:_ são os componentes que decidi criar para fazer acontecer o fluxo da aplicação.
+- constants: elementos que não mudam.
 
-  - Details:_
+  - _States:_ Neste caso quando o usuário vai adicionar um cliente, fiz com que o estado de nascimento fosse escolhido com um `select`, como os estados do Brasil serão sempre os mesmos, decidi colocar ele nessa parte da estrutura.
 
-  - Form:_
+- page: o número de páginas que vão estar dentro da aplicação, eu decidi que fora somente uma e fez renderizado condicional para mostrar ou ocultar elementos, no caso fosse mais de uma tela, usaria react-router para fazer a referência dos links.
+
+  - _HomePage:_ esta tela vai receber o componente encarregado de renderizar os cartôes de novidades e a lista de clientes. Nele tem a Homepage como tal e o arquivo styled, que da a estilização dela especificamente.
+
+- server: esta pasta contém arquivos JSON com os mockup das API iniciais, tanto dos clientes como da seção de novidades.
+
+- componentes: são os componentes que decidi criar para fazer acontecer o fluxo da aplicação.
+
+  - _Details:_ este componente vai ser renderizado quando o usuário clique no botão `Mostrar mais detalhes` que esta no componente "ListClient". Nele vão estar detalhes dos clientes que estão na lista de clientes na página principal.
+
+  - _Form:_ vai ser mostrado quando o usuário clique no botão `criar cliente` que está no ser componente pai `ListClient`, nele está a maioria da lógica da parte uma do desafio, ou seja, tem todos os campos dos inputs que tem que ser preenchidos, as condicionais de renderização e preenchimento dos campos e também as funções que permitem a formatação das informações de acordo com o mockup da API.
   
-  - Global:_
+  - _Global:_ aqui é onde trabalha o useContext do react como tal, neste arquivo eu coloquei as informações da API, para poder unir os dados que vão sendo criados com os dados dos clientes que já existem.
 
-  - ListClient:_
+  - _ListClient:_ este componente é um filho principal da HomePage, nele vão estar as funções que levaram a mostrar os detalhes dos clientes ou a criar novos (também tem o de editar, mas que não foi criado). Atualmente a lista tem uma tabela com 2 clientes que vem da API e que na medida que usuário adicione mais clientes, vão ir sendo renderizados nela.
 
-  - Slider:_
+  - _Slider:_ este componente não está ligado com o formulário, e resulta ser filho do componente HomePage. Nele vai estar desenvolvido a segunda parte do desafio, que consiste em fazer uma lista de novidades usando um slider. Dentro dele contém o arquivo que permite a estilizaçao e responsividade.
 
-- constants:_ elementos que não mudam.
-
-  - States:_ Neste caso quando o usuário vai adicionar um cliente, fiz com que o estado de nascimento fosse escolhido com um "select", como os estados do Brasil serão sempre os mesmos, decidi colocar ele nessa parte da estrutura.
-
-- page:_ o número de páginas que vão estar dentro da aplicação, eu decidi que fora somente uma e fez renderizado condicional para mostrar ou ocultar elementos, no caso fosse mais de uma tela, usaria react-router para fazer a referência dos links.
-
-  - HomePage:_ esta tela vai receber o componente encarregado de renderizar os cartôes de novidades e a lista de clientes. Nele tem a Homepage como tal e o arquivo styled, que da a estilização dela especificamente.
-
-- server:_ esta pasta contém arquivos JSON com os mockup das API iniciais, tanto dos clientes como da seção de novidades.
-
-- componentes:_ são os componentes que decidi criar para fazer acontecer o fluxo da aplicação.
-
-  - Details:_ este componente vai ser renderizado quando o usuário clique no botão "Mostrar mais detalhes" que esta no componente "ListClient". Nele vão estar detalhes dos clientes que estão na lista de clientes na página principal.
-
-  - Form:_ vai ser mostrado quando o usuário clique no botão "criar cliente" que está no ser componente pai "ListClient", nele está a maioria da lógica da parte uma do desafio, ou seja, tem todos os campos dos inputs que tem que ser preenchidos, as condicionais de renderização e preenchimento dos campos e também as funções que permitem a formatação das informações de acordo com o mockup da API.
-  
-  - Global:_ aqui é onde trabalha o useContext do react como tal, neste arquivo eu coloquei as informações da API, para poder unir os dados que vão sendo criados com os dados dos clientes que já existem.
-
-  - ListClient:_ este componente é um filho principal da HomePage, nele vão estar as funções que levaram a mostrar os detalhes dos clientes ou a criar novos (também tem o de editar, mas que não foi criado). Atualmente a lista tem uma tabela com 2 clientes que vem da API e que na medida que usuário adicione mais clientes, vão ir sendo renderizados nela.
-
-  - Slider:_ este componente não está ligado com o formulário, e resulta ser filho do componente HomePage. Nele vai estar desenvolvido a segunda parte do desafio, que consiste em fazer uma lista de novidades usando um slider. Dentro dele contém o arquivo que permite a estilizaçao e responsividade.
-
-- Arquivo App.js:_ arquivo do App, cuja componente é pai de todos, onde importamos o React, o encarregado de desenhar as interfaces.
+- _Arquivo App.js:_ arquivo do App, cuja componente é pai de todos, onde importamos o React, o encarregado de desenhar as interfaces.
   O esqueleto do componente é um componente funcional (chamado App).
 
-- Arquivo GlobalStyled.js:_ proporciona a estilização dos componentes gerais do aplicativo.
+- _Arquivo GlobalStyled.js:_ proporciona a estilização dos componentes gerais do aplicativo.
 
 
 ## Instalação
