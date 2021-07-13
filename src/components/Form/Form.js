@@ -44,6 +44,8 @@ const Form = () => {
   const handleRemovePhone = (value) => {
     const newPhones = inputPhoneRow.filter((index) => index !== value);
     setInputPhoneRow(newPhones);
+    const newPhone = phones.filter((phone) => phone.id != value);
+    setPhones(newPhone);
   };
 
   const handleAddNewEmail = () => {
@@ -60,6 +62,8 @@ const Form = () => {
   const handleRemoveEmail = (value) => {
     const newEmails = inputEmailRow.filter((index) => index !== value);
     setInputEmailRow(newEmails);
+    const newEmail = emails.filter((email) => email.id != value);
+    setEmails(newEmail);
   };
 
   const handleInputChange = (event) => {
@@ -222,14 +226,15 @@ const Form = () => {
           <h4> Estado </h4>{" "}
           <SelectOptions name={"state"} onChange={handleInputChange} required>
             <option value={""}> Estado de nascimento </option>{" "}
-            {states && states.map((state) => {
-              return (
-                <option value={state} key={state}>
-                  {" "}
-                  {state}{" "}
-                </option>
-              );
-            })}{" "}
+            {states &&
+              states.map((state) => {
+                return (
+                  <option value={state} key={state}>
+                    {" "}
+                    {state}{" "}
+                  </option>
+                );
+              })}{" "}
           </SelectOptions>{" "}
           {dateClient.state === "RN" && driverLicense.number[0] === "6" ? (
             <>

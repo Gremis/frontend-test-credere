@@ -50,7 +50,7 @@ function ListClients() {
                       <ButtonController onClick={() => showDetails(client)}>
                         Mostrar Detalhes
                       </ButtonController>
-                      <ButtonController>Editar</ButtonController>
+                      <ButtonController onClick={() => showForm(client)}>Editar</ButtonController>
                     </ContainerButtons>
                   </TableMainTd>
                 </TableMainTr>
@@ -71,7 +71,7 @@ function ListClients() {
               Voltar à lista de clientes
             </ButtonController>
           </ContainerButtons>
-          <Form />
+          <Form client={showClient} key={showClient.id} />
         </>
       )}
       {showFormClient === "show-client" && (

@@ -161,6 +161,10 @@ Tamanho de tela 320:
 
 - No total o fluxo e a componetizaçao da aplicação ficou da seguinte forma:
 
+
+![](diagrama.png)
+
+
 - O que não funciona:
 
 Editar
@@ -175,9 +179,10 @@ Não criei novos slides.
 
 Preenchimento dos telefones do cliente e do responsável: O fluxo do código é que o usuário preencha primeiro o dd e depois o número de telefone, no caso contrario o sistema alerta: "Cannot set property 'number' of undefined".
 
-Escolher qual telefone principal: O cliente pode escolher quando tem mais de 1 telefone qual é o principal, porém não pode mostrar nos detalhes, se escolheu entre um ou outro.
-
 ![](bug_phone.png)
+
+
+Escolher qual telefone principal: O cliente pode escolher quando tem mais de 1 telefone qual é o principal, porém não pode mostrar nos detalhes, se escolheu entre um ou outro.
 
 
 ## ⚙️ Pasta src ou Source:
